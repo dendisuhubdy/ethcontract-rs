@@ -99,6 +99,10 @@ pub enum ExecutionError {
     /// A removed log was received when querying past logs.
     #[error("unexepected removed log when querying past logs")]
     RemovedLog(Box<Log>),
+
+    /// A stream ended unexpectedly.
+    #[error("stream ended unexpectedly")]
+    StreamEndedUnexpectedly,
 }
 
 impl From<Web3Error> for ExecutionError {

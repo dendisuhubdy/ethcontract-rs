@@ -1,5 +1,4 @@
 use ethcontract::prelude::*;
-use futures::compat::Future01CompatExt;
 
 ethcontract::contract!(
     "examples/truffle/build/contracts/RustCoin.json",
@@ -13,14 +12,12 @@ fn main() {
 }
 
 async fn run() {
-    let (eloop, http) = Http::new("http://localhost:9545").expect("transport failed");
-    eloop.into_remote();
+    let http = Http::new("http://localhost:9545").expect("transport failed");
     let web3 = Web3::new(http);
 
     let network_id = web3
         .net()
         .version()
-        .compat()
         .await
         .expect("failed to get network ID");
     let instance = RustCoin::deployed(&web3)

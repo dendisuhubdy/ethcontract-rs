@@ -14,8 +14,7 @@ async fn run() {
         format!("https://mainnet.infura.io/v3/{}", project_id)
     };
 
-    let (eloop, http) = Http::new(&infura_url).expect("transport failed");
-    eloop.into_remote();
+    let http = Http::new(&infura_url).expect("transport failed");
     let web3 = Web3::new(http);
 
     let owl_proxy = TokenOWLProxy::deployed(&web3)

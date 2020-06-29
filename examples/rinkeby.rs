@@ -24,8 +24,7 @@ async fn run() {
     // NOTE: Use a WebSocket transport for `eth_newBlockFilter` support on
     //   Infura, filters are disabled over HTTPS. Filters are needed for
     //   confirmation support.
-    let (eloop, ws) = WebSocket::new(&infura_url).expect("transport failed");
-    eloop.into_remote();
+    let ws = WebSocket::new(&infura_url).await.expect("transport failed");
     let web3 = Web3::new(ws);
 
     println!("Account {:?}", account.address());

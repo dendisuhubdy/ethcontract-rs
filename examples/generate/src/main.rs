@@ -7,8 +7,7 @@ fn main() {
 }
 
 async fn run() {
-    let (eloop, http) = Http::new("http://localhost:9545").expect("create transport failed");
-    eloop.into_remote();
+    let http = Http::new("http://localhost:9545").expect("create transport failed");
     let web3 = Web3::new(http);
 
     let instance = RustCoin::builder(&web3)

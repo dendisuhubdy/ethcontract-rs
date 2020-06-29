@@ -1,5 +1,4 @@
 use ethcontract::prelude::*;
-use futures::compat::Future01CompatExt;
 use futures::join;
 use futures::stream::StreamExt;
 
@@ -10,16 +9,10 @@ fn main() {
 }
 
 async fn run() {
-    let (eloop, http) = Http::new("http://localhost:9545").expect("transport failed");
-    eloop.into_remote();
+    let http = Http::new("http://localhost:9545").expect("transport failed");
     let web3 = Web3::new(http);
 
-    let accounts = web3
-        .eth()
-        .accounts()
-        .compat()
-        .await
-        .expect("get accounts failed");
+    let accounts = web3.eth().accounts().await.expect("get accounts failed");
 
     let instance = RustCoin::builder(&web3)
         .gas(4_712_388.into())

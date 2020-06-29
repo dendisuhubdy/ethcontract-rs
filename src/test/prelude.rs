@@ -18,3 +18,15 @@ impl<F: Future + Sized> FutureImmediateExt for F {
             .expect("future did not resolve immediately")
     }
 }
+
+/// An extension future to wait for a future.
+pub trait FutureWaitExt: Future {
+    /// Block thread on a future completing.
+    fn wait(self) -> Self::Output;
+}
+
+impl<F: Future + Sized> FutureWaitExt for F {
+    fn wait(self) -> Self::Output {
+        futures::executor::block_on(self)
+    }
+}
